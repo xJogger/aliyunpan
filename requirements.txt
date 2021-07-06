@@ -4,7 +4,6 @@ click_aliases==1.0.1
 rsa==4.0
 click==7.1.2
 ruamel.base==1.0.0
-ruamel.yaml
 colorama~=0.4.3
 npyscreen==4.10.5
 windows-curses;platform_system=="Windows"

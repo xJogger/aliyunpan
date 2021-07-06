@@ -6,15 +6,20 @@
 环境要求： python 3.7 通过测试  
 ~~低版本环境运行报错参考~~[~~issue9~~](https://github.com/wxy1343/aliyunpan/issues/9)
 
+---
+
+相对于原版，去除了ruamel.yaml库的依赖，改用json作为配置文件，方便在Qnap、群晖上使用。
+未详细测试，请自行研究。
+
 ## 安装
 
 ```shell
-git clone https://github.com/wxy1343/aliyunpan --recurse-submodules
+git clone https://github.com/xJogger/aliyunpan --recurse-submodules
 ```
 
 ## 获取refresh_token
 
-![token](https://github.com/wxy1343/aliyunpan/raw/main/token.png)
+![token](https://github.com/xJogger/aliyunpan/raw/main/token.png)
 
 ### 注意
 
@@ -35,25 +40,14 @@ npm install jsdom
 ### 配置refresh_token
 
 ```shell
-echo "refresh_token: 'xxxxx'"  >  ~/.config/aliyunpan.yaml
+echo "{\"refresh_token\": \"xxxxx\"}"  >  ~/.config/aliyunpan.json
 ```
 
 ### 配置账号(可选)
 
 ```shell
-echo "username: 'xxxxx'"  >  ~/.config/aliyunpan.yaml
-echo "password: 'xxxxx'"  >>  ~/.config/aliyunpan.yaml
-```
-
-### 配置aria2(可选)
-
-```shell
-cat >> ~/.config/aliyunpan.yaml <<EOF
-aria2:
-  'host': 'http://localhost'
-  'port': 6800
-  'secret': ''
-EOF
+echo "{\"username\": \"xxxxx\"}"  >  ~/.config/aliyunpan.json
+echo "{\"password\": \"xxxxx\"}"  >>  ~/.config/aliyunpan.json
 ```
 
 ## 功能介绍
@@ -246,21 +240,6 @@ python main.py COMMAND -h
     </table>
 </details>
 
-### 断点续传
-
-* 将文件分成多块顺序上传
-* 文件上传进度保存在当前目录下的tasks.yaml
-* 格式
-  ```yaml
-  文件sha1:
-    path: 绝对路径
-    upload_id: 上传id
-    file_id: 文件id
-    chunk_size: 分块大小
-    part_number: 最后上传的分块编号
-  ```
-* 文件未上传成功时，CTRL+C会自动保存
-* 断点续传需带上参数-c
 
 ### 分享
 

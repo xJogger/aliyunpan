@@ -1,3 +1,5 @@
+import json
+
 from pathlib import Path
 
 from ruamel.yaml import YAML
@@ -6,7 +8,7 @@ from aliyunpan.common import DATA
 
 __all__ = ['Config']
 
-yaml = YAML()
+# yaml = YAML()
 
 
 class Config:
@@ -20,7 +22,7 @@ class Config:
         if not self._config_file.is_file():
             return {}
         with self.config_file.open(encoding='utf-8') as f:
-            return yaml.load(f) or {}
+            return json.load(f) or {}
 
     def write(self, conf):
         if not conf:
@@ -36,7 +38,7 @@ class Config:
         if isinstance(conf, DATA):
             conf = conf.to_dict()
         with self.config_file.open('w', encoding='utf-8') as f:
-            yaml.dump(conf, f)
+            json.dump(conf, f)
         return True
 
     def get(self, key):
